@@ -6,6 +6,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QObject>
+#include "general_struct.h"
 
 class DataBaseManager : public QObject
 {
@@ -14,6 +15,20 @@ public:
     static DataBaseManager *Instance();
     void AddWaterMeterRecord();
     ~DataBaseManager();
+
+
+    // 删除
+    bool DeleteWaterDevice(const QString &dev_name);
+
+    // 修改
+    bool InsertWaterDeviceInfo(const WaterDeviceInfo &info);
+    bool UpdateWaterDeviceInfoByDeviceName(const WaterDeviceInfo &info);
+
+    void InsertWaterDeviceRecord(const QString &dev_name, const WaterDeviceRecord &record);
+    // 查询
+    QList<WaterDeviceInfo> QueryWaterDeviceInfoList();
+    QList<WaterDeviceRecord> QueryWaterDeviceRecordList(const QString &device_name, const QDateTime &start_time, const QDateTime &end_time);
+    int QueryWaterDeviceId(const QString &name);
 
 
 private:
@@ -27,6 +42,8 @@ public slots:
 private:
     const QString m_db_file_path;
     QSqlDatabase m_db;
+    const QString m_db_table_water_device_config;
+    const QString m_db_table_water_device_record;
 };
 
 #endif // DATA_BASE_MANAGER_H

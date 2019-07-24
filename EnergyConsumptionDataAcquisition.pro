@@ -29,6 +29,7 @@ SOURCES += \
         mainwindow.cpp \
         src/base/config.cpp \
         src/base/data_base_manager.cpp \
+        src/base/general_struct.cpp \
         src/device/device.cpp \
         src/general/helper.cpp \
         src/gui/frame_tools.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
         mainwindow.h \
         src/base/config.h \
         src/base/data_base_manager.h \
+        src/base/general_struct.h \
         src/device/device.h \
         src/general/helper.h \
         src/gui/frame_tools.h \

@@ -3,6 +3,7 @@
 #include "../device/device.h"
 #include <QMap>
 
+
 class Config
 {
 public:

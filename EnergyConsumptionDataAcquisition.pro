@@ -60,3 +60,6 @@ INCLUDEPATH += $$PWD/3rd_lib/nlohmann_json
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    src/db/table_of_db_design

@@ -1,0 +1,22 @@
+﻿DB Type:        sqlite3
+DataBaseName:   ecda
+=======================================================================
+TABLE: water_device_config 水表设备配置信息
+CREATE TABLE water_device_info (
+    DeviceId      INTEGER   PRIMARY KEY AUTOINCREMENT
+                            UNIQUE,
+    DeviceName    TEXT      NOT NULL,
+    ServerIp      TEXT,
+    ServerPort    INTEGER,
+    DeviceAddress CHAR (12),
+    ManuCode      CHAR (4),
+    MeterType     CHAR (1),
+    StatusCode    INTEGER   NOT NULL
+);
+
+CREATE TABLE water_meter_record (
+    DeviceId     INTEGER,
+    RecordTime   DATE,
+    MeasureValue REAL    NOT NULL
+);
+

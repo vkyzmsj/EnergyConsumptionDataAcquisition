@@ -29,25 +29,25 @@ SOURCES += \
         mainwindow.cpp \
         src/base/config.cpp \
         src/base/data_base_manager.cpp \
-        src/base/general_struct.cpp \
         src/device/device.cpp \
         src/general/helper.cpp \
         src/gui/frame_tools.cpp \
         src/gui/frame_water_meter_device_config_edit.cpp \
         src/gui/frame_water_meter_display_item.cpp \
-        src/gui/water_meter_query_thread.cpp
+        src/gui/water_meter_query_thread.cpp \
+        src/logic/device_meter_query.cpp
 
 HEADERS += \
         mainwindow.h \
         src/base/config.h \
         src/base/data_base_manager.h \
-        src/base/general_struct.h \
         src/device/device.h \
         src/general/helper.h \
         src/gui/frame_tools.h \
         src/gui/frame_water_meter_device_config_edit.h \
         src/gui/frame_water_meter_display_item.h \
-        src/gui/water_meter_query_thread.h
+        src/gui/water_meter_query_thread.h \
+        src/logic/device_meter_query.h
 
 FORMS += \
         mainwindow.ui \

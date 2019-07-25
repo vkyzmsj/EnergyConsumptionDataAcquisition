@@ -7,35 +7,6 @@ Frame_WaterMeterDisplayItem::Frame_WaterMeterDisplayItem(QWidget *parent) :
 {
     ui->setupUi(this);
     m_query_thread = new WaterMeterQueryThread;
-    connect(m_query_thread, &WaterMeterQueryThread::NetConnectStatusChanged, this, [&](QAbstractSocket::SocketState state){
-        switch (state) {
-            case QAbstractSocket::SocketState::UnconnectedState:
-            {
-                ui->label_connect_status->setText("Unconnected");
-                break;
-            }
-            case QAbstractSocket::SocketState::ConnectingState:
-            {
-                ui->label_connect_status->setText("Connecting");
-                break;
-            }
-            case QAbstractSocket::SocketState::ConnectedState:
-            {
-                ui->label_connect_status->setText("Connected");
-                break;
-            }
-            default:
-                break;
-        }
-    });
-    connect(m_query_thread, &WaterMeterQueryThread::started, this, [&](){
-        ui->pushButton_start_req->setText("Stop");
-        ui->pushButton_start_req->setToolTip("Query Is Running");
-    });
-    connect(m_query_thread, &WaterMeterQueryThread::finished, this, [&](){
-        ui->pushButton_start_req->setText("Start");
-        ui->pushButton_start_req->setToolTip("");
-    });
 }
 
 Frame_WaterMeterDisplayItem::~Frame_WaterMeterDisplayItem()
@@ -85,7 +56,7 @@ WaterMeterDeviceConfig Frame_WaterMeterDisplayItem::GetWaterMeterDeviceConfig() 
     return m_water_meter_device_config;
 }
 
-void Frame_WaterMeterDisplayItem::SetWaterMeterDeviceConfig(const WaterMeterDeviceConfig &water_meter_device_config)
+void Frame_WaterMeterDisplayItem::SetWaterMeterDeviceConfig(const water_meter_device_config &water_meter_device_config)
 {
     m_water_meter_device_config = water_meter_device_config;
     Init();
@@ -93,7 +64,4 @@ void Frame_WaterMeterDisplayItem::SetWaterMeterDeviceConfig(const WaterMeterDevi
 
 void Frame_WaterMeterDisplayItem::Init()
 {
-    ui->groupBox_device->setTitle(m_water_meter_device_config.GetDevName());
-    ui->label_device_addr->setText(m_water_meter_device_config.GetDevAddrCode());
-    ui->label_connect_status->setText("Unconnected");
 }

@@ -24,7 +24,7 @@ public:
     bool InsertWaterDeviceInfo(const WaterDeviceInfo &info);
     bool UpdateWaterDeviceInfoByDeviceName(const WaterDeviceInfo &info);
 
-    void InsertWaterDeviceRecord(const QString &dev_name, const WaterDeviceRecord &record);
+    bool InsertWaterDeviceRecord(const QString &dev_name, const WaterDeviceRecord &record);
     // 查询
     QList<WaterDeviceInfo> QueryWaterDeviceInfoList();
     QList<WaterDeviceRecord> QueryWaterDeviceRecordList(const QString &device_name, const QDateTime &start_time, const QDateTime &end_time);
@@ -34,6 +34,13 @@ public:
 private:
     explicit DataBaseManager(QObject *parent = nullptr);
     bool InitDb();
+    bool CreateTableIfNotExist();
+
+    void Test();
+    void InsertTest();
+    void UpdateTest();
+    void QueryTest();
+    void DeleteTest();
 
 signals:
 
@@ -42,8 +49,8 @@ public slots:
 private:
     const QString m_db_file_path;
     QSqlDatabase m_db;
-    const QString m_db_table_water_device_config;
-    const QString m_db_table_water_device_record;
+    static const QString m_db_table_water_device_config;
+    static const QString m_db_table_water_device_record;
 };
 
 #endif // DATA_BASE_MANAGER_H

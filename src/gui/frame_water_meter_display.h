@@ -24,5 +24,6 @@ private:
     DataBaseManager *m_db_manager;
     bool m_start_monitor;
     QMap<QString, Frame_WaterMeterDisplayItem *> m_view_map;
+    QMap<>
 };
 

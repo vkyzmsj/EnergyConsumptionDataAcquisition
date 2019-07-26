@@ -19,32 +19,32 @@ class Frame_WaterMeterDisplayItem : public QFrame
 public:
     explicit Frame_WaterMeterDisplayItem(QWidget *parent = nullptr);
     ~Frame_WaterMeterDisplayItem();
-    bool IsEnable() const;
-    bool IsRunning() const;
-    void StartReq();
-    void StopReq();
     QString GetDeviceName() const;
 
-    WaterMeterDeviceConfig GetWaterMeterDeviceConfig() const;
-    void SetWaterMeterDeviceConfig(const WaterMeterDeviceConfig &water_meter_device_config);
+    WaterDeviceInfo GetWaterMeterDeviceConfig() const;
+    void SetWaterMeterDeviceConfig(const WaterDeviceInfo &water_meter_device_config);
 
+    void StartUpdate();
+    void StopUpdate();
+    void SetMaxUpdateCheckTimeInval(int s);
 private:
     void Init();
+    void ResetBackGroundColorValue();
+    void IncBackGroundColorBadLevel();
+    void UpdateBackGroundColor();
 
 signals:
     void MeterValReady(QDateTime date_time, double val);
 
-private slots:
-    void on_pushButton_start_req_clicked();
-    void UpdateMeterVal(QDateTime date_time, double val);
+public slots:
+    void UpdateMeterVal(const QString &dev_name, const QDateTime &date_time, double val);
 
 private:
     Ui::Frame_water_meter_display_item *ui;
     QTimer m_meter_update_max_timer;
-    int m_meter_not_update_continue_cnt;
-
-    WaterMeterDeviceConfig m_water_meter_device_config;
-    WaterMeterQueryThread *m_query_thread;
+    WaterDeviceInfo m_water_meter_device_config;
+    int m_max_update_time_s;
+    QColor m_back_ground_color;
 };
 
 #endif // FRAME_WATER_METER_DISPLAY_ITEM_H

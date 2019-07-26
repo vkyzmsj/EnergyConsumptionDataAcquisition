@@ -33,6 +33,7 @@ SOURCES += \
         src/general/helper.cpp \
         src/gui/frame_tools.cpp \
         src/gui/frame_water_meter_device_config_edit.cpp \
+        src/gui/frame_water_meter_display.cpp \
         src/gui/frame_water_meter_display_item.cpp \
         src/gui/water_meter_query_thread.cpp \
         src/logic/device_meter_query.cpp
@@ -45,6 +46,7 @@ HEADERS += \
         src/general/helper.h \
         src/gui/frame_tools.h \
         src/gui/frame_water_meter_device_config_edit.h \
+        src/gui/frame_water_meter_display.h \
         src/gui/frame_water_meter_display_item.h \
         src/gui/water_meter_query_thread.h \
         src/logic/device_meter_query.h
@@ -53,6 +55,7 @@ FORMS += \
         mainwindow.ui \
         src/gui/frame_tools.ui \
         src/gui/frame_water_meter_device_config_edit.ui \
+        src/gui/frame_water_meter_display.ui \
         src/gui/frame_water_meter_display_item.ui
 
 INCLUDEPATH += $$PWD/3rd_lib/nlohmann_json

@@ -6,7 +6,6 @@ Frame_WaterMeterDisplayItem::Frame_WaterMeterDisplayItem(QWidget *parent) :
     ui(new Ui::Frame_water_meter_display_item)
 {
     ui->setupUi(this);
-    m_query_thread = new WaterMeterQueryThread;
 }
 
 Frame_WaterMeterDisplayItem::~Frame_WaterMeterDisplayItem()
@@ -19,49 +18,77 @@ bool Frame_WaterMeterDisplayItem::IsEnable() const
     return m_water_meter_device_config.IsEnable();
 }
 
-bool Frame_WaterMeterDisplayItem::IsRunning() const
-{
-    return m_query_thread->isRunning();
-}
-
-void Frame_WaterMeterDisplayItem::StartReq()
-{
-    m_query_thread->start();
-}
-
-void Frame_WaterMeterDisplayItem::StopReq()
-{
-    m_query_thread->StopReq();
-}
-
 QString Frame_WaterMeterDisplayItem::GetDeviceName() const
 {
     return m_water_meter_device_config.GetDevName();
 }
 
-void Frame_WaterMeterDisplayItem::on_pushButton_start_req_clicked()
+void Frame_WaterMeterDisplayItem::UpdateMeterVal(const QString &dev_name, const QDateTime &date_time, double val)
 {
-    if(m_water_meter_device_config.IsEnable())
-        m_query_thread->start();
+    if(dev_name != m_water_meter_device_config.device_name)
+        return;
+    ui->lcdNumber_measure_value->display(val);
+    ui->lcdNumber_measure_value->setToolTip(QString("last update time: %1").arg(date_time.toString("hh:mm:ss")));
+    ResetBackGroundColorValue();
+    UpdateBackGroundColor();
 }
 
-void Frame_WaterMeterDisplayItem::UpdateMeterVal(QDateTime date_time, double val)
-{
-    ui->lcdNumber_meter_number->display(val);
-    ui->lcdNumber_meter_number->setToolTip(QString("update: %1").arg(date_time.toString("hh:mm:ss")));
-}
-
-WaterMeterDeviceConfig Frame_WaterMeterDisplayItem::GetWaterMeterDeviceConfig() const
+WaterDeviceInfo Frame_WaterMeterDisplayItem::GetWaterMeterDeviceConfig() const
 {
     return m_water_meter_device_config;
 }
 
-void Frame_WaterMeterDisplayItem::SetWaterMeterDeviceConfig(const water_meter_device_config &water_meter_device_config)
+void Frame_WaterMeterDisplayItem::SetWaterMeterDeviceConfig(const WaterDeviceInfo &water_meter_device_config)
 {
     m_water_meter_device_config = water_meter_device_config;
     Init();
 }
 
+void Frame_WaterMeterDisplayItem::StartUpdate()
+{
+    m_meter_update_max_timer.start(m_max_update_time_s * 1000);
+    ResetBackGroundColorValue();
+    UpdateBackGroundColor();
+}
+
+void Frame_WaterMeterDisplayItem::StopUpdate()
+{
+    m_meter_update_max_timer.stop();
+}
+
+void Frame_WaterMeterDisplayItem::SetMaxUpdateCheckTimeInval(int s)
+{
+    m_max_update_time_s = s;
+}
+
 void Frame_WaterMeterDisplayItem::Init()
 {
+    connect(&m_meter_update_max_timer, &QTimer::timeout, [&](){
+        IncBackGroundColorBadLevel();
+        UpdateBackGroundColor();
+    });
+}
+
+void Frame_WaterMeterDisplayItem::ResetBackGroundColorValue()
+{
+    m_back_ground_color.setGreen(255);
+    m_back_ground_color.setRed(0);
+    m_back_ground_color.setBlue(0);
+}
+
+void Frame_WaterMeterDisplayItem::IncBackGroundColorBadLevel()
+{
+    m_back_ground_color.setGreen(qMax(m_back_ground_color.green() - 1, 0));
+    m_back_ground_color.setGreen(qMin(m_back_ground_color.red() + 1, 255));
+
+}
+
+void Frame_WaterMeterDisplayItem::UpdateBackGroundColor()
+{
+    QString back_ground_color_style_sheet_str = QString("background: #%1%2%3")
+                                                .arg(m_back_ground_color.red(), 2, 16, QChar('0'))
+                                                .arg(m_back_ground_color.green(), 2, 16, QChar('0'))
+                                                .arg(m_back_ground_color.green(), 2, 16, QChar('0'));
+    setStyleSheet(back_ground_color_style_sheet_str);
+
 }

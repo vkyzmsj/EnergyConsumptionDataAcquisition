@@ -27,6 +27,7 @@ public:
     void StartUpdate();
     void StopUpdate();
     void SetMaxUpdateCheckTimeInval(int s);
+    bool IsEnable() const;
 private:
     void Init();
     void ResetBackGroundColorValue();

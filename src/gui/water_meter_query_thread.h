@@ -6,6 +6,7 @@
 #include <QUdpSocket>
 #include "../base/config.h"
 #include <QDateTime>
+#include "../device/device.h"
 
 class WaterMeterQueryThread : public QThread
 {
@@ -13,7 +14,7 @@ class WaterMeterQueryThread : public QThread
 public:
     explicit WaterMeterQueryThread(QObject *parent = nullptr);
     void run();
-    void SetWaterMeterConfig(const WaterMeterDeviceConfig &water_meter_config);
+    void SetWaterMeterConfig(const WaterDeviceInfo &water_meter_config);
     void StopReq();
 
 private:
@@ -32,7 +33,7 @@ public slots:
 
 
 private:
-    WaterMeterDeviceConfig m_water_meter_config;
+    WaterDeviceInfo m_water_meter_config;
     bool m_stop_thread;
 };
 

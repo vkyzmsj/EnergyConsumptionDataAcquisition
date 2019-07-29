@@ -1,6 +1,7 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "src/gui/frame_tools.h"
+#include "src/gui/report/frame_report_view.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -9,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     m_db_manager = DataBaseManager::Instance();
+    InitWaterMeterDevice();
+
+    ui->verticalLayout_report->addWidget(new FrameReportView);
 }
 
 MainWindow::~MainWindow()
@@ -18,16 +22,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::InitWaterMeterDevice()
 {
-    QList<WaterMeterDeviceConfig> list = Config::Instance()->GetWaterDeviceConfigList();
-    for(auto c : list)
-    {
-        if(!m_water_meter_device_display_items.contains(c.GetDevName()))
-        {
-            Frame_WaterMeterDisplayItem *item = new Frame_WaterMeterDisplayItem;
-            item->SetWaterMeterDeviceConfig(c);
-            ui->verticalLayout_water_meter_display->addWidget(item);
-        }
-    }
+    frame_water_meter_display = new Frame_WaterMeterDisplay();
+    frame_water_meter_display->SyncView();
+    frame_water_meter_display->show();
 }
 
 void MainWindow::on_actionHelpTools_triggered()
@@ -40,24 +37,26 @@ void MainWindow::on_actionHelpTools_triggered()
 void MainWindow::on_actionAddWaterDevice_triggered()
 {
     Frame_WaterMeterDeviceConfigEdit edit;
-    WaterMeterDeviceConfig water_meter_config;
-    edit.SetWaterMeterDeviceConfig(water_meter_config);
+    WaterDeviceInfo water_meter_info;
+    edit.SetDeviceInfo(water_meter_info);
     edit.show();
 
     QEventLoop loop;
     connect(&edit, &Frame_WaterMeterDeviceConfigEdit::Finished, &loop, &QEventLoop::quit);
     loop.exec();
-
-    if(edit.ExitWithYes())
-    {
-        qDebug() <<":::";
-        Config::Instance()->AddWaterDeviceConfig(edit.GetWaterMeterDeviceConfig());
-        Config::Instance()->Save();
-    }
-
 }
 
 void MainWindow::on_actionUpdateDeviceStatus_triggered()
 {
     InitWaterMeterDevice();
+}
+
+void MainWindow::on_actionSyncView_triggered()
+{
+    frame_water_meter_display->SyncView();
+}
+
+void MainWindow::on_actionStart_triggered()
+{
+
 }

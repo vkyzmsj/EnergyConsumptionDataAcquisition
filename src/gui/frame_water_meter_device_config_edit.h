@@ -2,6 +2,7 @@
 #define FRAME_WATER_METER_DEVICE_CONFIG_EDIT_H
 
 #include <QFrame>
+#include "../base/data_base_manager.h"
 #include "../base/config.h"
 
 namespace Ui {
@@ -17,8 +18,8 @@ public:
     ~Frame_WaterMeterDeviceConfigEdit();
 
 
-    WaterMeterDeviceConfig GetWaterMeterDeviceConfig() const;
-    void SetWaterMeterDeviceConfig(const WaterMeterDeviceConfig &water_meter_device_config);
+    WaterDeviceInfo GetDeviceInfo() const;
+    void SetDeviceInfo(const WaterDeviceInfo &water_meter_device_config);
 
     bool ExitWithYes();
 
@@ -33,11 +34,9 @@ private slots:
 
     void on_pushButton_cancle_clicked();
 
-    void on_toolButton_clicked();
-
 private:
     Ui::Frame_water_meter_device_config_edit *ui;
-    WaterMeterDeviceConfig m_water_meter_device_config;
+    WaterDeviceInfo m_device_info;
     bool m_exit_with_yes;
 };
 

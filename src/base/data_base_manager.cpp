@@ -303,7 +303,7 @@ void DataBaseManager::Test()
 //    InsertTest();
 //    UpdateTest();
 //    QueryTest();
-    DeleteTest();
+//    DeleteTest();
 
 }
 

@@ -8,6 +8,9 @@ Frame_WaterMeterDisplay::Frame_WaterMeterDisplay(QWidget *parent) :
     ui->setupUi(this);
     m_config = Config::Instance();
     m_db_manager = DataBaseManager::Instance();
+    m_tree_top_item = new QTreeWidgetItem(QStringList() << tr("Water Device"));
+    ui->treeWidget_wate_devices->clear();
+    ui->treeWidget_wate_devices->addTopLevelItem(m_tree_top_item);
 }
 
 Frame_WaterMeterDisplay::~Frame_WaterMeterDisplay()
@@ -28,17 +31,21 @@ void Frame_WaterMeterDisplay::SyncView()
         }
         return false;
     };
+
+    // 删除无效的视图
     for(auto it = m_view_map.begin(); it != m_view_map.end();)
     {
         if(!HasDevice(device_info_list, it.key()))
         {
-            ui->treeWidget_wate_devices->topLevelItem(0)->takeChild(ui->treeWidget_wate_devices->topLevelItem(0)->indexOfChild(*it));
+            m_tree_top_item->removeChild(m_tree_node_map[it.key()]);
+            delete m_tree_node_map[it.key()];
+            m_tree_node_map.remove(it.key());
             m_view_map.erase(it);
         }else{
             it++;
         }
     }
-    // add view
+    // 增加新的视图
     for(auto it : device_info_list)
     {
         if(!m_view_map.contains(it.device_name))
@@ -50,7 +57,21 @@ void Frame_WaterMeterDisplay::SyncView()
             {
                 item->StartUpdate();
             }
-            ui->treeWidget_wate_devices->topLevelItem(0)->addChild();
+            m_tree_node_map[it.device_name] = new QTreeWidgetItem();
+            m_tree_top_item->addChild(m_tree_node_map[it.device_name]);
+            ui->treeWidget_wate_devices->setItemWidget(m_tree_node_map[it.device_name], 0, item);
+        }
+    }
+}
+
+void Frame_WaterMeterDisplay::UpdateWaterMeasureValue(const QString &name, double value)
+{
+    for(auto it = m_view_map.begin(); it != m_view_map.end(); ++it)
+    {
+        if(name == it.key())
+        {
+            (*it)->UpdateMeterVal(name, QDateTime::currentDateTime(), value);
+            return;
         }
     }
 }

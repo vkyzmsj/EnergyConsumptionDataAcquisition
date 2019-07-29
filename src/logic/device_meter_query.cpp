@@ -26,6 +26,11 @@ void DeviceMeterQuery::AddDeviceInfo(const QString &device_name, const ServerInf
     m_query_cmd_map[device_name] = query_cmd;
 }
 
+void DeviceMeterQuery::SocketRead()
+{
+
+}
+
 void DeviceMeterQuery::QueryMeter()
 {
     for(auto it = m_udp_socket_map.begin(); it !=m_udp_socket_map.end(); ++it)

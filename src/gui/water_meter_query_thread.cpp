@@ -27,7 +27,7 @@ void WaterMeterQueryThread::run()
 
     QUdpSocket udp_socket;
     emit NetConnectStatusChanged(QAbstractSocket::SocketState::ConnectingState);
-    udp_socket.connectToHost(m_water_meter_config.GetServerIpAddr(), m_water_meter_config.GetServerPort());
+    udp_socket.connectToHost(m_water_meter_config.server_ip, m_water_meter_config.server_port);
     if(udp_socket.waitForConnected())
     {
         emit NetConnectStatusChanged(QAbstractSocket::SocketState::ConnectedState);
@@ -61,18 +61,18 @@ void WaterMeterQueryThread::run()
         AnalysisData(recv_data);
 
 
-        while(req_cycle_timer.elapsed() < m_water_meter_config.GetDegreeQueryCycleS() * 1000)
-        {
-            QThread::msleep(1000);
-            if(m_stop_thread)
-                break;
-        }
+//        while(req_cycle_timer.elapsed() < m_water_meter_config.GetDegreeQueryCycleS() * 1000)
+//        {
+//            QThread::msleep(1000);
+//            if(m_stop_thread)
+//                break;
+//        }
     }
     udp_socket.abort();
     qDebug() <<__FUNCTION__<< ": exit thread";
 }
 
-void WaterMeterQueryThread::SetWaterMeterConfig(const WaterMeterDeviceConfig &water_meter_config)
+void WaterMeterQueryThread::SetWaterMeterConfig(const WaterDeviceInfo &water_meter_config)
 {
     m_water_meter_config = water_meter_config;
 }
@@ -90,8 +90,8 @@ QByteArray WaterMeterQueryThread::GenReqCmd() const
     static QString p1("FE FE FE FE 68 10"), p2("01 03 1F 90 04"), p_end("16");
     QByteArray cmd_data = QByteArray::fromHex(QString("%1 %2 %3 %4 %5 %6")
                                               .arg(p1)
-                                              .arg(m_water_meter_config.GetDevAddrCode())
-                                              .arg(m_water_meter_config.GetManufacturerCode())
+                                              .arg(m_water_meter_config.device_address.toHex(' ').toStdString().c_str())
+                                              .arg(m_water_meter_config.manu_code.toHex(' ').toStdString().c_str())
                                               .arg(p2)
                                               .arg("00")
                                               .arg(p_end).toStdString().c_str());

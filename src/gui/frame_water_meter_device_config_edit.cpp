@@ -11,6 +11,12 @@ Frame_WaterMeterDeviceConfigEdit::Frame_WaterMeterDeviceConfigEdit(QWidget *pare
     m_exit_with_yes(false)
 {
     ui->setupUi(this);
+    QList<DeviceStatus> device_status_list;
+    device_status_list << DeviceStatus::Deleted << DeviceStatus::Activite << DeviceStatus::NoneActivite;
+    for(auto it : device_status_list)
+    {
+        ui->comboBox_device_status->addItem(ToString(it), static_cast<int>(it));
+    }
 }
 
 Frame_WaterMeterDeviceConfigEdit::~Frame_WaterMeterDeviceConfigEdit()
@@ -21,8 +27,8 @@ Frame_WaterMeterDeviceConfigEdit::~Frame_WaterMeterDeviceConfigEdit()
 void Frame_WaterMeterDeviceConfigEdit::on_pushButton_yes_clicked()
 {
     UpdateDeviceConfig();
-    Config *cof = Config::Instance();
-    if(cof->WaterDeviceExists(m_water_meter_device_config.GetDevName()))
+    DataBaseManager *db_manager = DataBaseManager::Instance();
+    if(!db_manager->InsertWaterDeviceInfo(m_device_info))
     {
         QMessageBox::warning(this, tr("Add Water Device Config"), tr("device name has exist"), QMessageBox::Yes);
         return;
@@ -32,14 +38,14 @@ void Frame_WaterMeterDeviceConfigEdit::on_pushButton_yes_clicked()
     emit Finished();
 }
 
-WaterMeterDeviceConfig Frame_WaterMeterDeviceConfigEdit::GetWaterMeterDeviceConfig() const
+WaterDeviceInfo Frame_WaterMeterDeviceConfigEdit::GetDeviceInfo() const
 {
-    return m_water_meter_device_config;
+    return m_device_info;
 }
 
-void Frame_WaterMeterDeviceConfigEdit::SetWaterMeterDeviceConfig(const WaterMeterDeviceConfig &water_meter_device_config)
+void Frame_WaterMeterDeviceConfigEdit::SetDeviceInfo(const WaterDeviceInfo &water_meter_device_config)
 {
-    m_water_meter_device_config = water_meter_device_config;
+    m_device_info = water_meter_device_config;
     Init();
 }
 
@@ -50,47 +56,28 @@ bool Frame_WaterMeterDeviceConfigEdit::ExitWithYes()
 
 void Frame_WaterMeterDeviceConfigEdit::Init()
 {
-    ui->lineEdit_dev_name->setText(m_water_meter_device_config.GetDevName());
-    ui->lineEdit_ip_addr->setText(m_water_meter_device_config.GetServerIpAddr());
-    ui->lineEdit_server_port->setText(QString::number(m_water_meter_device_config.GetServerPort()));
-    ui->lineEdit_query_cycle_s->setText(QString::number(m_water_meter_device_config.GetDegreeQueryCycleS()));
-    ui->lineEdit_save_max_time_s->setText(QString::number(m_water_meter_device_config.GetDegreeDataSaveMaxTimeS()));
-    ui->lineEdit_data_save_path->setText(m_water_meter_device_config.GetSaveDir());
-    ui->lineEdit_meter_type_code->setText(m_water_meter_device_config.GetMeterTypeCode());
-    ui->lineEdit_manufacture_code->setText(m_water_meter_device_config.GetManufacturerCode());
-    ui->lineEdit_device_addr->setText(m_water_meter_device_config.GetDevAddrCode());
-    ui->checkBox_device_is_enable->setChecked(m_water_meter_device_config.IsEnable());
+    ui->lineEdit_dev_name->setText(m_device_info.device_name);
+    ui->lineEdit_ip_addr->setText(m_device_info.server_ip);
+    ui->lineEdit_server_port->setText(QString::number(m_device_info.server_port));
+    ui->lineEdit_meter_type_code->setText(m_device_info.meter_type.toHex().toUpper());
+    ui->lineEdit_manufacture_code->setText(m_device_info.manu_code.toHex().toUpper());
+    ui->lineEdit_device_addr->setText(m_device_info.device_address.toHex().toUpper());
+    ui->comboBox_device_status->setCurrentIndex(ui->comboBox_device_status->findData(static_cast<int>(m_device_info.device_status)));
 }
 
 void Frame_WaterMeterDeviceConfigEdit::UpdateDeviceConfig()
 {
-    m_water_meter_device_config.SetDevName(ui->lineEdit_dev_name->text().trimmed());
-    m_water_meter_device_config.SetDevType(MeterDeviceType::WaterMeter);
-    m_water_meter_device_config.SetServerIpAddr(ui->lineEdit_ip_addr->text().trimmed());
-    m_water_meter_device_config.SetServerPort(ui->lineEdit_server_port->text().trimmed().toInt());
-    m_water_meter_device_config.SetDegreeQueryCycleS(ui->lineEdit_query_cycle_s->text().toInt());
-    m_water_meter_device_config.SetDegreeDataSaveMaxTimeS(ui->lineEdit_save_max_time_s->text().toInt());
-    m_water_meter_device_config.SetSaveDir(ui->lineEdit_data_save_path->text().trimmed());
-    m_water_meter_device_config.SetMeterTypeCode(ui->lineEdit_meter_type_code->text().trimmed());
-    m_water_meter_device_config.SetManufacturerCode(ui->lineEdit_manufacture_code->text().trimmed());
-    m_water_meter_device_config.SetDevAddrCode(ui->lineEdit_device_addr->text().trimmed());
-    m_water_meter_device_config.setEnable(ui->checkBox_device_is_enable->isChecked());
+    m_device_info.device_name = (ui->lineEdit_dev_name->text().trimmed());
+    m_device_info.server_ip = (ui->lineEdit_ip_addr->text().trimmed());
+    m_device_info.server_port = static_cast<quint16>(ui->lineEdit_server_port->text().trimmed().toInt());
+    m_device_info.meter_type = QByteArray::fromHex(ui->lineEdit_meter_type_code->text().trimmed().toStdString().c_str());
+    m_device_info.manu_code = QByteArray::fromHex(ui->lineEdit_manufacture_code->text().trimmed().toStdString().c_str());
+    m_device_info.device_address = QByteArray::fromHex(ui->lineEdit_device_addr->text().trimmed().toStdString().c_str());
+    m_device_info.device_status = static_cast<DeviceStatus>(ui->comboBox_device_status->currentData().toInt());
 }
 
 void Frame_WaterMeterDeviceConfigEdit::on_pushButton_cancle_clicked()
 {
     hide();
     emit Finished();
-}
-
-void Frame_WaterMeterDeviceConfigEdit::on_toolButton_clicked()
-{
-    QString dir = QFileDialog::getExistingDirectory(this, tr("chose data save directory path"),
-                                                    m_water_meter_device_config.GetSaveDir(),
-                                                    QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks);
-    if(!dir.isEmpty())
-    {
-        ui->lineEdit_data_save_path->setText(dir);
-    }
 }

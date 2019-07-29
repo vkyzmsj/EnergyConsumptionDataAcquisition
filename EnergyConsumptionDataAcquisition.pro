@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network sql
+QT       += core gui network sql  webchannel webenginewidgets axcontainer
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,8 +35,12 @@ SOURCES += \
         src/gui/frame_water_meter_device_config_edit.cpp \
         src/gui/frame_water_meter_display.cpp \
         src/gui/frame_water_meter_display_item.cpp \
+        src/gui/report/excel_to_html.cpp \
+        src/gui/report/frame_report_view.cpp \
+        src/gui/report/js_context.cpp \
         src/gui/water_meter_query_thread.cpp \
-        src/logic/device_meter_query.cpp
+        src/logic/device_meter_query.cpp \
+        src/logic/report_generator.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,15 +52,20 @@ HEADERS += \
         src/gui/frame_water_meter_device_config_edit.h \
         src/gui/frame_water_meter_display.h \
         src/gui/frame_water_meter_display_item.h \
+        src/gui/report/excel_to_html.h \
+        src/gui/report/frame_report_view.h \
+        src/gui/report/js_context.h \
         src/gui/water_meter_query_thread.h \
-        src/logic/device_meter_query.h
+        src/logic/device_meter_query.h \
+        src/logic/report_generator.h
 
 FORMS += \
         mainwindow.ui \
         src/gui/frame_tools.ui \
         src/gui/frame_water_meter_device_config_edit.ui \
         src/gui/frame_water_meter_display.ui \
-        src/gui/frame_water_meter_display_item.ui
+        src/gui/frame_water_meter_display_item.ui \
+        src/gui/report/frame_report_view.ui
 
 INCLUDEPATH += $$PWD/3rd_lib/nlohmann_json
 
@@ -67,4 +76,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    src/db/table_of_db_design
+    src/db/table_of_db_design \
+    src/gui/report/msgutils.js \
+    src/gui/report/report.html
+
+include($$PWD/3rd_lib/QtXlsxWriter/src/xlsx/qtxlsx.pri)

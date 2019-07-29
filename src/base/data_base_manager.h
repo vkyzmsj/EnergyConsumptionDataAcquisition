@@ -6,7 +6,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QObject>
-#include "general_struct.h"
+#include "../device/device.h"
 
 class DataBaseManager : public QObject
 {

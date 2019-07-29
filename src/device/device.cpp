@@ -182,3 +182,15 @@
 //    info.m_manufacturer_code = QString::fromStdString(j.at("manufacturer code(2B)").get<std::string>());
 //    info.m_meter_type_code = QString::fromStdString(j.at("meter type code(1B)").get<std::string>());
 //}
+
+QString ToString(DeviceStatus status)
+{
+    switch (status) {
+        case DeviceStatus::Deleted:
+            return QObject::tr("Delete");
+        case DeviceStatus::NoneActivite:
+            return QObject::tr("NoneActivite");
+        case DeviceStatus::Activite:
+            return QObject::tr("Activite");
+    }
+}

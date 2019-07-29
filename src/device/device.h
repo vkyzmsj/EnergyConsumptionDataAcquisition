@@ -19,6 +19,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DeviceStatus,{
                                  {DeviceStatus::NoneActivite, "NoneActivite"},
                                  {DeviceStatus::Activite, "Activite"},
                              });
+QString ToString(DeviceStatus status);
 
 struct WaterDeviceInfo
 {

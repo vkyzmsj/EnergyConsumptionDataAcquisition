@@ -25,7 +25,8 @@ void Config::Save()
 
 Config::Config():
     m_config_file_path("config.json"),
-    m_db_file_path("ecda.db")
+    m_db_file_path("ecda.db"),
+    m_report_output_path("report")
 {
 
 }
@@ -60,6 +61,16 @@ void Config::Load()
         }
         abort();
     }
+}
+
+QString Config::GetReportOutputPath() const
+{
+    return m_report_output_path;
+}
+
+void Config::SetReportOutputPath(const QString &report_path)
+{
+    m_report_output_path = report_path;
 }
 
 QString Config::GetDbFilePath() const

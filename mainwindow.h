@@ -7,6 +7,8 @@
 #include "src/gui/frame_water_meter_display_item.h"
 #include "src/gui/frame_water_meter_device_config_edit.h"
 #include "src/gui/frame_water_meter_display.h"
+#include "src/gui/frame_gas_meter_display.h"
+#include "src/gui/frame_power_meter_display.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +42,8 @@ private:
     QMap<QString, Frame_WaterMeterDisplayItem> m_water_meter_device_display_items;
     DataBaseManager *m_db_manager;
     Frame_WaterMeterDisplay *frame_water_meter_display;
+    Frame_GasMeterDisplay *frame_gas_meter_display;
+    Frame_PowerMeterDisplay *frame_power_meter_display;
 };
 
 #endif // MAINWINDOW_H

@@ -1,4 +1,6 @@
-﻿#pragma once
+#ifndef FRAME_GAS_METER_DISPLAY_H
+#define FRAME_GAS_METER_DISPLAY_H
+#include "ui_frame_gas_meter_display.h"
 #include "frame_water_meter_display_item.h"
 #include "../base/data_base_manager.h"
 #include <QFrame>
@@ -6,28 +8,23 @@
 #include <QTreeWidgetItem>
 
 namespace Ui {
-class Frame_water_meter_display;
+class Frame_gas_meter_display;
 }
 
-class Frame_WaterMeterDisplay : public QFrame
+class Frame_GasMeterDisplay : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit Frame_WaterMeterDisplay(QWidget *parent = nullptr);
-    ~Frame_WaterMeterDisplay();
+    explicit Frame_GasMeterDisplay(QWidget *parent = nullptr);
+    ~Frame_GasMeterDisplay();
     void SyncView();
-
-    void SetTypeName(const QString &type_name);
-
-public slots:
-    void UpdateWaterMeasureValue(const QString &name, double value);
 
 private:
     QString GetStyleSheet() const;
 
 private:
-    Ui::Frame_water_meter_display *ui;
+    Ui::Frame_gas_meter_display *ui;
     Config *m_config;
     DataBaseManager *m_db_manager;
     bool m_start_monitor;
@@ -36,3 +33,4 @@ private:
     QTreeWidgetItem *m_tree_top_item;
 };
 
+#endif // FRAME_GAS_METER_DISPLAY_H

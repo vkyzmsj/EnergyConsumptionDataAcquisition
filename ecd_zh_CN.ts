@@ -47,6 +47,37 @@
     </message>
 </context>
 <context>
+    <name>Frame_GasMeterDisplay</name>
+    <message>
+        <location filename="src/gui/frame_gas_meter_display.cpp" line="10"/>
+        <source>Gas Device</source>
+        <translation>气表</translation>
+    </message>
+    <message>
+        <location filename="src/gui/frame_gas_meter_display.cpp" line="14"/>
+        <source>Gas Meter Display</source>
+        <translation>气表显示</translation>
+    </message>
+</context>
+<context>
+    <name>Frame_PowerMeterDisplay</name>
+    <message>
+        <location filename="src/gui/frame_power_meter_display.cpp" line="11"/>
+        <source>Power Device</source>
+        <translation>电表</translation>
+    </message>
+    <message>
+        <location filename="src/gui/frame_power_meter_display.cpp" line="15"/>
+        <source>Water Meter Display</source>
+        <translation>电表显示</translation>
+    </message>
+    <message>
+        <location filename="src/gui/frame_power_meter_display.cpp" line="71"/>
+        <source>kWh</source>
+        <translation>千瓦时</translation>
+    </message>
+</context>
+<context>
     <name>Frame_Tools</name>
     <message>
         <location filename="src/gui/frame_tools.ui" line="14"/>
@@ -108,28 +139,44 @@
 <context>
     <name>Frame_WaterMeterDisplayItem</name>
     <message>
-        <location filename="src/gui/frame_water_meter_display_item.cpp" line="73"/>
+        <location filename="src/gui/frame_water_meter_display_item.cpp" line="79"/>
         <source>Device Name: %1</source>
         <translation>设备名：%1</translation>
     </message>
     <message>
-        <location filename="src/gui/frame_water_meter_display_item.cpp" line="74"/>
+        <location filename="src/gui/frame_water_meter_display_item.cpp" line="80"/>
         <source>IP: %1</source>
         <translation>IP：%1</translation>
     </message>
     <message>
-        <location filename="src/gui/frame_water_meter_display_item.cpp" line="75"/>
+        <location filename="src/gui/frame_water_meter_display_item.cpp" line="81"/>
         <source>Port: %1</source>
         <translation>端口号：%1</translation>
     </message>
     <message>
-        <location filename="src/gui/frame_water_meter_display_item.cpp" line="76"/>
+        <location filename="src/gui/frame_water_meter_display_item.cpp" line="82"/>
         <source>Value: %1 M^3</source>
         <translation>测量值：%1 立方米</translation>
     </message>
     <message>
-        <location filename="src/gui/frame_water_meter_display_item.cpp" line="77"/>
+        <location filename="src/gui/frame_water_meter_display_item.cpp" line="83"/>
         <source>%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Frame_gas_meter_display</name>
+    <message>
+        <location filename="src/gui/frame_gas_meter_display.ui" line="14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Frame_power_meter_display</name>
+    <message>
+        <location filename="src/gui/frame_power_meter_display.ui" line="14"/>
+        <source>Frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -251,43 +298,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="58"/>
+        <location filename="mainwindow.ui" line="61"/>
         <source>Tools</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="64"/>
+        <location filename="mainwindow.ui" line="67"/>
         <source>Config</source>
         <translation>配置</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="86"/>
+        <location filename="mainwindow.ui" line="89"/>
         <source>HelpTools</source>
         <translation>帮助文档</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="91"/>
+        <location filename="mainwindow.ui" line="94"/>
         <source>AddWaterDevice</source>
         <translation>增加水表信息</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="96"/>
+        <location filename="mainwindow.ui" line="99"/>
         <source>UpdateDeviceStatus</source>
         <translation>更新设备状态</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="101"/>
+        <location filename="mainwindow.ui" line="104"/>
         <source>SyncView</source>
         <translatorcomment>更新视图</translatorcomment>
         <translation>更新仪表视图</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="106"/>
+        <location filename="mainwindow.ui" line="109"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="111"/>
+        <location filename="mainwindow.ui" line="114"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
@@ -419,7 +466,7 @@ Click OK To Reset ConfigFile, You Need Restart This Program</source>
         <translation>产品数量</translation>
     </message>
     <message>
-        <location filename="src/logic/report_generator.cpp" line="158"/>
+        <location filename="src/logic/report_generator.cpp" line="159"/>
         <source>Water Meter Device</source>
         <translation>水表</translation>
     </message>

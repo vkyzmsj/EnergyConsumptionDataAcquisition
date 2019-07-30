@@ -32,6 +32,8 @@ SOURCES += \
         src/base/data_base_manager.cpp \
         src/device/device.cpp \
         src/general/helper.cpp \
+        src/gui/frame_gas_meter_display.cpp \
+        src/gui/frame_power_meter_display.cpp \
         src/gui/frame_tools.cpp \
         src/gui/frame_water_meter_device_config_edit.cpp \
         src/gui/frame_water_meter_display.cpp \
@@ -49,6 +51,8 @@ HEADERS += \
         src/base/data_base_manager.h \
         src/device/device.h \
         src/general/helper.h \
+        src/gui/frame_gas_meter_display.h \
+        src/gui/frame_power_meter_display.h \
         src/gui/frame_tools.h \
         src/gui/frame_water_meter_device_config_edit.h \
         src/gui/frame_water_meter_display.h \
@@ -62,6 +66,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
+        src/gui/frame_gas_meter_display.ui \
+        src/gui/frame_power_meter_display.ui \
         src/gui/frame_tools.ui \
         src/gui/frame_water_meter_device_config_edit.ui \
         src/gui/frame_water_meter_display.ui \

@@ -68,6 +68,11 @@ void Frame_WaterMeterDisplay::SyncView()
     }
 }
 
+void Frame_WaterMeterDisplay::SetTypeName(const QString &type_name)
+{
+    m_tree_top_item->setText(0, type_name);
+}
+
 void Frame_WaterMeterDisplay::UpdateWaterMeasureValue(const QString &name, double value)
 {
     for(auto it = m_view_map.begin(); it != m_view_map.end(); ++it)

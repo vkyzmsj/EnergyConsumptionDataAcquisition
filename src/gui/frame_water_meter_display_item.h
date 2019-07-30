@@ -20,6 +20,7 @@ public:
     explicit Frame_WaterMeterDisplayItem(QWidget *parent = nullptr);
     ~Frame_WaterMeterDisplayItem();
     QString GetDeviceName() const;
+    void SetUnitName(const QString &unit_label_name);
 
     WaterDeviceInfo GetWaterMeterDeviceConfig() const;
     void SetWaterMeterDeviceConfig(const WaterDeviceInfo &water_meter_device_config);
@@ -46,6 +47,7 @@ private:
     WaterDeviceInfo m_water_meter_device_config;
     int m_max_update_time_s;
     QColor m_back_ground_color;
+    QString m_unit_label_name;
 };
 
 #endif // FRAME_WATER_METER_DISPLAY_ITEM_H

@@ -171,6 +171,8 @@ QList<ReportGenerator::MeasureItem> ReportGenerator::GetWaterDeviceMeasureList()
     for(auto it: device_list)
     {
         auto measure_val_list = DataBaseManager::Instance()->QueryWaterDeviceRecordList(it.device_name, m_time_range.first, m_time_range.second);
+        if(measure_val_list.size() == 0)
+            continue;
         auto item = ToMeasureItem(it.device_name, measure_val_list);
         list.append(item);
     }

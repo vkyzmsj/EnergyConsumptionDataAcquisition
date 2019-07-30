@@ -30,6 +30,19 @@ void MainWindow::InitWaterMeterDevice()
     frame_water_meter_display->SyncView();
 //    frame_water_meter_display->show();
     ui->verticalLayout_water_meter->addWidget(frame_water_meter_display);
+
+    frame_gas_meter_display = new Frame_GasMeterDisplay();
+    frame_gas_meter_display->SyncView();
+
+    ui->verticalLayout_gas_meter->addWidget(frame_gas_meter_display);
+//    frame_gas_meter_display->show();
+
+    frame_power_meter_display = new Frame_PowerMeterDisplay();
+    frame_power_meter_display->SyncView();
+
+    ui->horizontalLayout_device_monitor->addWidget(frame_power_meter_display);
+
+
 }
 
 void MainWindow::on_actionHelpTools_triggered()

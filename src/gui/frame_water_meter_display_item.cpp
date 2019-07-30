@@ -24,6 +24,12 @@ QString Frame_WaterMeterDisplayItem::GetDeviceName() const
     return m_water_meter_device_config.device_name;
 }
 
+void Frame_WaterMeterDisplayItem::SetUnitName(const QString &unit_label_name)
+{
+    m_unit_label_name = unit_label_name;
+    ui->label->setText(unit_label_name);
+}
+
 void Frame_WaterMeterDisplayItem::UpdateMeterVal(const QString &dev_name, const QDateTime &date_time, double val)
 {
     if(dev_name != m_water_meter_device_config.device_name)

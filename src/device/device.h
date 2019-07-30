@@ -29,7 +29,11 @@ struct WaterDeviceInfo
     QByteArray meter_type;                // Hex 1B
     quint16 server_port;
     DeviceStatus device_status;
-    WaterDeviceInfo(): device_name(""), server_ip(""),meter_type(0x00), server_port(0){
+    WaterDeviceInfo(): device_name("device1"), server_ip("127.0.0.1"),
+        device_address(QByteArray::fromHex("010203040506")),
+        manu_code(QByteArray::fromHex("0102")),
+        meter_type(QByteArray::fromHex("00")), server_port(10000),
+        device_status(DeviceStatus::Activite){
 
     }
     WaterDeviceInfo(const QString &device_name): device_name(device_name), server_ip(""), server_port(0){

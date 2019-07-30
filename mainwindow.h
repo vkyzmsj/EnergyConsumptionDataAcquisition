@@ -33,6 +33,8 @@ private slots:
 
     void on_actionStart_triggered();
 
+    void on_actionStop_triggered();
+
 private:
     Ui::MainWindow *ui;
     QMap<QString, Frame_WaterMeterDisplayItem> m_water_meter_device_display_items;

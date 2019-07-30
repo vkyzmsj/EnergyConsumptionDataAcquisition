@@ -82,3 +82,8 @@ DISTFILES += \
     src/gui/report/report.html
 
 include($$PWD/3rd_lib/QtXlsxWriter/src/xlsx/qtxlsx.pri)
+
+TRANSLATIONS = ecd_zh_CN.ts
+
+RESOURCES += \
+    source.qrc

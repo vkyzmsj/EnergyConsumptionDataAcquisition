@@ -11,6 +11,9 @@ Frame_WaterMeterDisplay::Frame_WaterMeterDisplay(QWidget *parent) :
     m_tree_top_item = new QTreeWidgetItem(QStringList() << tr("Water Device"));
     ui->treeWidget_wate_devices->clear();
     ui->treeWidget_wate_devices->addTopLevelItem(m_tree_top_item);
+    ui->treeWidget_wate_devices->header()->hide();
+    setWindowTitle(tr("Water Meter Display"));
+    ui->treeWidget_wate_devices->setStyleSheet(GetStyleSheet());
 }
 
 Frame_WaterMeterDisplay::~Frame_WaterMeterDisplay()
@@ -74,4 +77,34 @@ void Frame_WaterMeterDisplay::UpdateWaterMeasureValue(const QString &name, doubl
             return;
         }
     }
+}
+
+QString Frame_WaterMeterDisplay::GetStyleSheet() const
+{
+QString style =  "    QTreeView::branch:has-siblings:!adjoins-item {\
+        border-image: url(:/source/vline.png) 0;\
+    }\
+\
+    QTreeView::branch:has-siblings:adjoins-item {\
+        border-image: url(:/source/branch-more.png) 4;\
+    width: 40px;\
+    heigh: 40px;\
+    }\
+\
+    QTreeView::branch:!has-children:!has-siblings:adjoins-item {\
+        border-image: url(:/source/branch-end.png) 0;\
+    }\
+\
+    QTreeView::branch:has-children:!has-siblings:closed,\
+    QTreeView::branch:closed:has-children:has-siblings {\
+            border-image: none;\
+            image: url(:/source/branch-closed.png);\
+    }\
+\
+    QTreeView::branch:open:has-children:!has-siblings,\
+    QTreeView::branch:open:has-children:has-siblings  {\
+            border-image: none;\
+            image: url(:/source/branch-open.png);\
+    }";
+    return style;
 }

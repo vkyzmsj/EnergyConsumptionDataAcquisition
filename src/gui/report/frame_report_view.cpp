@@ -2,6 +2,7 @@
 #include "ui_frame_report_view.h"
 #include <QMetaMethod>
 #include <QMetaObject>
+#include <QAction>
 
 FrameReportView::FrameReportView(QWidget *parent) :
     QFrame(parent),
@@ -24,12 +25,18 @@ void FrameReportView::LoadNewFile(const QString &file_path)
 
 void FrameReportView::Init()
 {
-    m_web_view = new QWebEngineView;
+    m_web_view = new QWebEngineView();
 //    m_js_context = new JsContext(this);
 //    m_web_channel = new QWebChannel(this);
     m_web_page = new QWebEnginePage();
     m_web_view->setPage(m_web_page);
-    m_web_view->setContextMenuPolicy(Qt::NoContextMenu);
+    m_web_view->setContextMenuPolicy(Qt::ActionsContextMenu);
+//    QAction *print_action = new QAction(tr("Print"));
+//    m_print = new QPrinter();
+//    connect(print_action, &QAction::toggle, this, [&](){
+//        m_web_view->page()->print(m_print,  [=](bool){});
+//    });
+//    m_web_view->addAction(print_action);
 //    m_web_channel->registerObject("context", m_js_context);
 //    m_web_page->setWebChannel(m_web_channel);
 //    connect(m_js_context, &JsContext::RecvdMsg, this, [&](const QString& msg) {
@@ -57,4 +64,10 @@ void FrameReportView::Init()
     });
     connect(m_report_generator, &ReportGenerator::ReportReady, m_excel_to_html, &ExcelToHtml::ConvertExcel);
     connect(m_excel_to_html, &ExcelToHtml::ConvertFinish, this, &FrameReportView::LoadNewFile);
+}
+
+void FrameReportView::on_pushButton_open_report_dir_clicked()
+{
+    QString cmd = QString("start %1").arg(Config::Instance()->GetReportOutputPath());
+    system(cmd.toStdString().c_str());
 }

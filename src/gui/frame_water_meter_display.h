@@ -22,6 +22,9 @@ public slots:
     void UpdateWaterMeasureValue(const QString &name, double value);
 
 private:
+    QString GetStyleSheet() const;
+
+private:
     Ui::Frame_water_meter_display *ui;
     Config *m_config;
     DataBaseManager *m_db_manager;

@@ -51,6 +51,7 @@ public slots:
 
 private:
     QPair<QDateTime, QDateTime> m_time_range;
+    QList<QString> m_report_colome_labels;
 };
 
 #endif // REPORT_GENERATOR_H

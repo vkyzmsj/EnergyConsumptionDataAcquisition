@@ -6,6 +6,7 @@ Frame_Tools::Frame_Tools(QWidget *parent) :
     ui(new Ui::Frame_Tools)
 {
     ui->setupUi(this);
+    setWindowTitle(tr("Tools"));
 }
 
 Frame_Tools::~Frame_Tools()

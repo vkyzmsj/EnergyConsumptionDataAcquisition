@@ -7,6 +7,7 @@
 #include <QWebChannel>
 #include <QDebug>
 #include <QThread>
+#include <QPrinter>
 #include "../../logic/report_generator.h"
 
 #include "js_context.h"
@@ -27,6 +28,9 @@ public:
 public slots:
     void LoadNewFile(const QString &file_path);
 
+private slots:
+    void on_pushButton_open_report_dir_clicked();
+
 private:
     void Init();
 
@@ -40,6 +44,7 @@ private:
     ReportGenerator *m_report_generator;
     ExcelToHtml *m_excel_to_html;
     QList<QThread *> m_thread_list;
+    QPrinter *m_print;
 };
 
 #endif // FRAME_REPORT_VIEW_H

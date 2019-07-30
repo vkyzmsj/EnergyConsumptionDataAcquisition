@@ -98,6 +98,6 @@ void Frame_WaterMeterDisplayItem::UpdateBackGroundColor()
                                                 .arg(m_back_ground_color.green(), 2, 16, QChar('0'))
                                                 .arg(m_back_ground_color.blue(), 2, 16, QChar('0'));
 //    qDebug() << __FUNCTION__ << back_ground_color_style_sheet_str;
-    setStyleSheet(back_ground_color_style_sheet_str);
+    ui->lcdNumber_measure_value->setStyleSheet(back_ground_color_style_sheet_str);
 
 }

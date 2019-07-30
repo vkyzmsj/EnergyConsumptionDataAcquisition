@@ -17,6 +17,8 @@ Frame_WaterMeterDeviceConfigEdit::Frame_WaterMeterDeviceConfigEdit(QWidget *pare
     {
         ui->comboBox_device_status->addItem(ToString(it), static_cast<int>(it));
     }
+
+    setWindowTitle(tr("Water Device Add"));
 }
 
 Frame_WaterMeterDeviceConfigEdit::~Frame_WaterMeterDeviceConfigEdit()

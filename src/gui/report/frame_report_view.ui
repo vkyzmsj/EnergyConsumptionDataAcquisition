@@ -62,6 +62,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_open_report_dir">
+         <property name="text">
+          <string>ReportDir</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>

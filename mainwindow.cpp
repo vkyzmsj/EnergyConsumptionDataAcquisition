@@ -10,9 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     m_db_manager = DataBaseManager::Instance();
+
+    ui->actionStop->setEnabled(false);
     InitWaterMeterDevice();
 
     ui->verticalLayout_report->addWidget(new FrameReportView);
+    setWindowTitle(tr("EnergyConsumptionDataAcquisition"));
 }
 
 MainWindow::~MainWindow()
@@ -24,7 +27,8 @@ void MainWindow::InitWaterMeterDevice()
 {
     frame_water_meter_display = new Frame_WaterMeterDisplay();
     frame_water_meter_display->SyncView();
-    frame_water_meter_display->show();
+//    frame_water_meter_display->show();
+    ui->verticalLayout_water_meter->addWidget(frame_water_meter_display);
 }
 
 void MainWindow::on_actionHelpTools_triggered()
@@ -58,5 +62,12 @@ void MainWindow::on_actionSyncView_triggered()
 
 void MainWindow::on_actionStart_triggered()
 {
+    ui->actionStart->setEnabled(false);
+    ui->actionStop->setEnabled(true);
+}
 
+void MainWindow::on_actionStop_triggered()
+{
+    ui->actionStart->setEnabled(true);
+    ui->actionStop->setEnabled(false);
 }

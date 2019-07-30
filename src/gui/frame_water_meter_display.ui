@@ -16,6 +16,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTreeWidget" name="treeWidget_wate_devices">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <column>
       <property name="text">
        <string notr="true">1</string>

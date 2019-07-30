@@ -14,6 +14,7 @@ Frame_WaterMeterDisplay::Frame_WaterMeterDisplay(QWidget *parent) :
     ui->treeWidget_wate_devices->header()->hide();
     setWindowTitle(tr("Water Meter Display"));
     ui->treeWidget_wate_devices->setStyleSheet(GetStyleSheet());
+    ui->treeWidget_wate_devices->expandAll();
 }
 
 Frame_WaterMeterDisplay::~Frame_WaterMeterDisplay()

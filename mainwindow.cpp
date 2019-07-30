@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->verticalLayout_report->addWidget(new FrameReportView);
     setWindowTitle(tr("EnergyConsumptionDataAcquisition"));
+    resize(1400 , 800);
 }
 
 MainWindow::~MainWindow()

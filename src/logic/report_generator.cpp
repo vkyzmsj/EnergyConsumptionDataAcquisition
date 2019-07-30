@@ -97,6 +97,7 @@ void ReportGenerator::GenMeasureItemListContext(Document &xlsx,  QXlsx::CellRefe
         xlsx.write(CellReference(cell_ref.row(), colum++), item.end_val - item.start_val, format);
         xlsx.write(CellReference(cell_ref.row(), colum++), " ", format);
         xlsx.write(CellReference(cell_ref.row(), colum++), " ", format);
+        xlsx.write(CellReference(cell_ref.row(), colum++), " ", format);
     };
 
     GenDeviceTypeColum(xlsx, device_type_name, list.size(), curr_cell);

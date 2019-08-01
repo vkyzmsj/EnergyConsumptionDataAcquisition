@@ -1,4 +1,4 @@
-#include "frame_power_meter_display.h"
+﻿#include "frame_power_meter_display.h"
 #include "ui_frame_power_meter_display.h"
 
 Frame_PowerMeterDisplay::Frame_PowerMeterDisplay(QWidget *parent) :
@@ -79,29 +79,29 @@ void Frame_PowerMeterDisplay::SyncView()
 QString Frame_PowerMeterDisplay::GetStyleSheet() const
 {
     QString style =  "    QTreeView::branch:has-siblings:!adjoins-item {\
-            border-image: url(:/source/vline.png) 0;\
+            border-image: url(:/source/power_vline.png) 0;\
         }\
     \
         QTreeView::branch:has-siblings:adjoins-item {\
-            border-image: url(:/source/branch-more.png) 4;\
+            border-image: url(:/source/power_branch-more.png) 4;\
         width: 40px;\
         heigh: 40px;\
         }\
     \
         QTreeView::branch:!has-children:!has-siblings:adjoins-item {\
-            border-image: url(:/source/branch-end.png) 0;\
+            border-image: url(:/source/power_branch-end.png) 0;\
         }\
     \
         QTreeView::branch:has-children:!has-siblings:closed,\
         QTreeView::branch:closed:has-children:has-siblings {\
                 border-image: none;\
-                image: url(:/source/branch-closed.png);\
+                image: url(:/source/power_branch-closed.png);\
         }\
     \
         QTreeView::branch:open:has-children:!has-siblings,\
         QTreeView::branch:open:has-children:has-siblings  {\
                 border-image: none;\
-                image: url(:/source/branch-open.png);\
+                image: url(:/source/power_branch-open.png);\
         }";
         return style;
 }

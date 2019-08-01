@@ -5,5 +5,15 @@
         <file>source/stylesheet-branch-closed.png</file>
         <file>source/stylesheet-branch-open.png</file>
         <file>source/vline.png</file>
+        <file>source/power_branch-end.png</file>
+        <file>source/power_branch-more.png</file>
+        <file>source/power_stylesheet-branch-closed.png</file>
+        <file>source/power_stylesheet-branch-open.png</file>
+        <file>source/power_vline.png</file>
+        <file>source/water_branch-end.png</file>
+        <file>source/water_branch-more.png</file>
+        <file>source/water_stylesheet-branch-closed.png</file>
+        <file>source/water_stylesheet-branch-open.png</file>
+        <file>source/water_vline.png</file>
     </qresource>
 </RCC>
